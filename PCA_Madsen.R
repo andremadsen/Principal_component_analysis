@@ -62,7 +62,8 @@ NewDataPCscores <- t(PCA.model$rotation) %*% TransformedNewData
 NewDataPCscores2 <- data.frame(t(NewDataPCscores))
 head(NewDataPCscores2)
 
-df <- cbind(df.pca, NewDataPCscores2) # confirm PC-scores [from PCA] match the manually calculated PC-scores
+df <- cbind(df.pca, NewDataPCscores2) 
+head(df)          # confirm that PC-scores [from PCA] are identical to the manually calculated PC-scores
 
 # Self-made biplot!
 plot.default(df$PC1, df$PC2)
