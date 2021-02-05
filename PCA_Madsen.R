@@ -7,7 +7,7 @@
 library(datasets)
 data(iris)      #load
 head(iris)      #inspect
-str(iris)       #note 'Species' factor variable is column 4
+str(iris)       #note 'Species' factor variable is column 5
 
 
 # PCA cannot handle NA values: a real-world dataset will require this cleaning
