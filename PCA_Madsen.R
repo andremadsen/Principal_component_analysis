@@ -46,10 +46,12 @@ ggbiplot(PCA.model, choices = c(1,2), obs.scale = 1, var.scale = 1, groups = df.
     theme(text = element_text(size=12)) + theme(legend.text = element_text(size=12)) +
     theme(aspect.ratio=0.8) + theme(legend.margin=margin(t=0, r=0, b=0, l=0, unit="cm"))
 
+
+# MANUALLY CALCULATE THE PC SCORES:
+# APPLY CENTER=TRUE & SCALE=TRUE TO NEW DATA
 str(iris)
 a <- data.frame(iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length, iris$Petal.Width, iris$Species)
 
-# APPLY CENTER=TRUE & SCALE=TRUE TO NEW DATA
 require(graphics)
 c.fun<-function(a, center, scale) {
     return((a-center)/scale ) }
@@ -62,6 +64,8 @@ head(NewDataPCscores2)
 
 df <- cbind(df.pca, NewDataPCscores2) # confirm PC-scores [from PCA] match the manually calculated PC-scores
 
+# Self-made biplot!
+plot.default(df$PC1, df$PC2)
 
 
 # Write dataframe containing PC scores 
@@ -75,8 +79,6 @@ write.table(df.pca, "PCA_results.csv",
 
 
 
-
-
 # ROC analyses to evaluate PCA clustering: ability to distinguish "versicolor" vs "virginica"
 library(pROC)
 df.pca$SpeciesVar <- as.factor(ifelse(df.pca$Species == "versicolor",1, ifelse(df.pca$Species == "virginica",2,NA)))
@@ -87,7 +89,6 @@ PROC1 <- roc(class,score)
 plot(PROC1)
 auc(PROC1)
 coords(PROC1, "best", transpose=TRUE, ret=c("ppv", "npv", "accuracy", "threshold", "tp", "fp", "tn", "fn"))
-
 
 
 # ppv = positive predictive value
